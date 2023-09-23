@@ -29,3 +29,79 @@ Puedes anadir logs de info, warning y error en las llamadas, para un mejor contr
 
 Diseño por Contrato (Opcional):
 Puedes anadir validaciones en precondiciones o postcondiciones como lo veas necesario*/
+
+////////////comenzamos
+
+interface IUser{
+    loan(userID:string):void;
+}
+
+
+interface search{
+    search(query: string):void;
+}
+
+interface loan{
+    loan(ISBN: string, userID: string):void;
+}
+
+
+
+interface IEmailService{
+    sendEmail(userID: string, message: string):void;
+}
+//                                  ^
+//                                  |
+//interfaces para utilizar arrriba 
+ class LibraryManager{
+    books: string[]=[];
+    loans: string[]=[];
+    
+    add(book: any) {
+        this.books.push(book);
+    }
+    
+ }
+
+ class Book implements IUser,loan{
+    title:string[]=[];
+    author:string[]=[];
+    ISBN:string[]=[];
+    userID:string[]=[];
+
+    add(book:string){
+        this.title.push(book);
+        this.author.push(book);
+        this.ISBN.push(book);
+    }
+
+    remove(book: string) {
+        const index = this.title.indexOf(book);
+        const index2 = this.author.indexOf(book);
+        const index3 = this.ISBN.indexOf(book);
+        if (index > -1) {
+            this.title.splice(index, 1);
+        }
+        if(index2 > -1){
+            this.author.splice(index2,1);
+        }
+        if(index3){
+            this.ISBN.splice(index3,1);
+        }
+    }
+
+    // search(book:string){
+    //     this.Book.filter(book => book.title.includes(query) || book.author.includes(query) || 
+    //     book.ISBN === query)
+        
+    // }
+
+    loan(){
+        const book = this.ISBN.find(b => b.ISBN === ISBN);
+        if(book){
+            this.loans.push({ ISBN, userID, date: new Date() });
+            this.sendEmail(userID, `Has solicitado el libro ${book.title}`);
+        }
+    }
+
+ }
